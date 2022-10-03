@@ -29,8 +29,8 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Configure & Build With CMake
-        run: mkdir build && cd build && cmake -DETHASHCUDA=0 .. && cmake --build . --config Release && make all
-
+        run: mkdir build && cd build && cmake -DETHASHCUDA=0 .. && cmake --build . --config Release
+      
       - name: Make new release 
         id: create-new-release
         uses: actions/create-release@v1
@@ -46,7 +46,7 @@ jobs:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-         asset_path: ./build/ethminer.exe
+         asset_path: ./build/ethminer/Release/ethminer.exe
          asset_name: ethminer.exe
          asset_content_type: application/exe
          
